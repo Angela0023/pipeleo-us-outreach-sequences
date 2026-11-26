@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pipeleo — U.S. B2B Outreach Playbook</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[var(--background,#f8fafc)] text-[var(--foreground,#0f172a)] font-sans antialiased m-0 p-0 text-sm leading-relaxed">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6">
+
+    <!-- Header -->
+    <header class="bg-[var(--card,#ffffff)] border border-[var(--card-border,#e2e8f0)] rounded-xl p-5 sm:p-6 space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+        <div class="space-y-1.5">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[var(--primary,#2563eb)] text-[var(--primary-foreground,#ffffff)]">
+              Pipeleo · U.S. Market
+            </span>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--content,#f1f5f9)] text-[var(--muted-foreground,#475569)] border border-[var(--border,#e2e8f0)]">
+              Cadence: Day 1 → Day 4 → Day 9
+            </span>
+          </div>
+          <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-[var(--foreground,#0f172a)]">
+            U.S. B2B Cold Outreach Playbook
+          </h1>
+          <p class="text-sm text-[var(--muted-foreground,#475569)] max-w-2xl">
+            Four finalized 3-step sequences built around fresh live-source prospecting, verifiable proof of fit, pre-send email testing, and live dashboard visibility.
+          </p>
+        </div>
+
+        <!-- Mode Toggle -->
+        <div class="flex flex-col items-start sm:items-end gap-2 shrink-0">
+          <span class="text-xs font-medium text-[var(--muted-foreground,#475569)]">View &amp; Copy Mode</span>
+          <div class="inline-flex rounded-lg p-1 bg-[var(--content,#f1f5f9)] border border-[var(--border,#e2e8f0)]" role="group" aria-label="View mode toggle">
+            <button id="btn-mode-template" type="button" class="px-3 py-1.5 rounded-md text-xs font-semibold transition-colors cursor-pointer">
+              Template ({{vars}})
+            </button>
+            <button id="btn-mode-preview" type="button" class="px-3 py-1.5 rounded-md text-xs font-semibold transition-colors cursor-pointer">
+              Live Preview
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rules Strip -->
+      <div class="flex flex-wrap items-center gap-2 pt-3 border-t border-[var(--border,#e2e8f0)]">
+        <span class="text-xs font-semibold text-[var(--muted-foreground,#475569)] mr-1">Enforced Rules:</span>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-[var(--content,#f1f5f9)] text-[var(--success,#059669)] border border-[var(--border,#e2e8f0)]">
+          ✓ Zero Pricing Mentioned
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-[var(--content,#f1f5f9)] text-[var(--success,#059669)] border border-[var(--border,#e2e8f0)]">
+          ✓ No "Call" Language
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-[var(--content,#f1f5f9)] text-[var(--success,#059669)] border border-[var(--border,#e2e8f0)]">
+          ✓ Plain-Text / Zero Links &amp; Attachments
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-[var(--content,#f1f5f9)] text-[var(--success,#059669)] border border-[var(--border,#e2e8f0)]">
+          ✓ Same-Thread Follow-Ups (Re:)
+        </span>
+      </div>
+
+      <!-- Live Preview Variables Panel (hidden in Template mode) -->
+      <div id="preview-controls" class="hidden pt-4 border-t border-[var(--border,#e2e8f0)] space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="text-xs font-semibold text-[var(--foreground,#0f172a)]">
+            Live Preview Variables <span class="font-normal text-[var(--muted-foreground,#475569)]">(updates all email copy &amp; copy buttons immediately)</span>
+          </span>
+          <button id="btn-reset-vars" type="button" class="text-xs font-medium text-[var(--link,#2563eb)] hover:underline cursor-pointer">
+            Reset sample values
+          </button>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <label class="block space-y-1">
+            <span class="text-xs font-medium text-[var(--muted-foreground,#475569)] font-mono">{{first_name}}</span>
+            <input id="input-first-name" type="text" class="w-full px-3 py-1.5 rounded-lg text-sm bg-[var(--content,#f1f5f9)] text-[var(--foreground,#0f172a)] border border-[var(--border,#e2e8f0)] focus:outline-none focus:border-[var(--primary,#2563eb)]" />
+          </label>
+          <label class="block space-y-1">
+            <span class="text-xs font-medium text-[var(--muted-foreground,#475569)] font-mono">{{company_name}}</span>
+            <input id="input-company-name" type="text" class="w-full px-3 py-1.5 rounded-lg text-sm bg-[var(--content,#f1f5f9)] text-[var(--foreground,#0f172a)] border border-[var(--border,#e2e8f0)] focus:outline-none focus:border-[var(--primary,#2563eb)]" />
+          </label>
+          <label class="block space-y-1">
+            <span class="text-xs font-medium text-[var(--muted-foreground,#475569)] font-mono">{{industry}}</span>
+            <input id="input-industry" type="text" class="w-full px-3 py-1.5 rounded-lg text-sm bg-[var(--content,#f1f5f9)] text-[var(--foreground,#0f172a)] border border-[var(--border,#e2e8f0)] focus:outline-none focus:border-[var(--primary,#2563eb)]" />
+          </label>
+          <label class="block space-y-1">
+            <span class="text-xs font-medium text-[var(--muted-foreground,#475569)] font-mono">{{sender_first_name}}</span>
+            <input id="input-sender-name" type="text" class="w-full px-3 py-1.5 rounded-lg text-sm bg-[var(--content,#f1f5f9)] text-[var(--foreground,#0f172a)] border border-[var(--border,#e2e8f0)] focus:outline-none focus:border-[var(--primary,#2563eb)]" />
+          </label>
+        </div>
+        <div id="preview-var4-controls" class="grid grid-cols-1 lg:grid-cols-2 gap-3 pt-1">
+          <label class="block space-y-1">
+            <span class="text-xs font-medium text-[var(--muted-foreground,#475569)] font-mono">{{custom_subject}} <span class="font-sans">(Var 4)</span></span>
+            <input id="input-custom-subject" type="text" class="w-full px-3 py-1.5 rounded-lg text-sm bg-[var(--content,#f1f5f9)] text-[var(--foreground,#0f172a)] border border-[var(--border,#e2e8f0)] focus:outline-none focus:border-[var(--primary,#2563eb)]" />
+          </label>
+          <label class="block space-y-1">
+            <span class="text-xs font-medium text-[var(--muted-foreground,#475569)] font-mono">{{personalized_opener}} <span class="font-sans">(Var 4)</span></span>
+            <input id="input-personalized-opener" type="text" class="w-full px-3 py-1.5 rounded-lg text-sm bg-[var(--content,#f1f5f9)] text-[var(--foreground,#0f172a)] border border-[var(--border,#e2e8f0)] focus:outline-none focus:border-[var(--primary,#2563eb)]" />
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <!-- Tab Navigation -->
+    <nav class="flex flex-wrap gap-2" aria-label="Sequence navigation" id="tab-bar"></nav>
+
+    <!-- Main View Container -->
+    <main id="main-content" class="space-y-6"></main>
+
+  </div>
+
+  <!-- Toast feedback -->
+  <div id="copy-toast" class="fixed bottom-4 right-4 z-50 hidden px-3.5 py-2 rounded-lg text-xs font-semibold bg-[var(--foreground,#0f172a)] text-[var(--background,#f8fafc)] border border-[var(--border,#e2e8f0)] shadow-lg">
+    Copied to clipboard
+  </div>
+
+  <script>
+    (function () {
+      const DEFAULT_VARS = {
+        first_name: 'Alex',
+        company_name: 'Apex Logistics',
+        industry: 'logistics',
+        sender_first_name: 'Angela',
+        custom_subject: 'lead gen role / outbound at {{company_name}}',
+        personalized_opener: "Noticed you're hiring a lead generation specialist at {{company_name}}—sounds like building steady B2B pipeline is a big focus right now."
+      };
+
+      const VAR4_PRESETS = [
+        {
+          id: 'hiring',
+          label: 'Hiring Lead Gen Role',
+          badge: 'Hiring Trigger',
+          subject: 'lead gen role / outbound at {{company_name}}',
+          opener: "Noticed you're hiring a lead generation specialist at {{company_name}}—sounds like building steady B2B pipeline is a big focus right now."
+        },
+        {
+          id: 'funding',
+          label: 'Funding / Growth Trigger',
+          badge: 'Growth Trigger',
+          subject: 'scaling outbound at {{company_name}}',
+          opener: 'Congrats on the recent {{funding/launch/expansion}} at {{company_name}}—usually right when teams start pushing harder on outbound pipeline.'
+        }
+      ];
+
+      const SEQUENCES = [
+        {
+          id: 'var1',
+          tabLabel: 'Var 1: Transparency',
+          shortName: 'Variation 1',
+          title: 'Context + Transparency (Proof & Live Dashboard)',
+          angle: 'Context + Transparency (Proof & Live Dashboard)',
+          bestFor: 'Founders, CEOs, and VPs of Sales who care about brand safety, list accuracy, and full visibility into what is sent under their name.',
+          bestFitShort: 'Founders, CEOs, VPs of Sales focused on brand safety & list quality',
+          onePagerPlacement: 'Follow-Up 2 (Day 9)',
+          mergeVars: ['{{first_name}}', '{{company_name}}', '{{industry}}', '{{sender_first_name}}'],
+          emails: [
+            {
+              step: 'Email 1',
+              day: 'Day 1',
+              tag: 'Initial Outreach',
+              isOnePager: false,
+              subject: 'outbound at {{company_name}}',
+              body: `Hi {{first_name}},
+
+Reaching out because we work with U.S. {{industry}} teams looking to build a steadier B2B pipeline without relying on bought lists or losing visibility into what's sent under their brand.
+
+At Pipeleo, every target company is sourced fresh with proof of fit attached, every email is tested before sending, and you see every account and message in a live dashboard. Your team only steps in when someone replies with interest.
+
+Open to taking a quick look at a demo account?
+
+{{sender_first_name}}
+Pipeleo`
+            },
+            {
+              step: 'Follow-Up 1',
+              day: 'Day 4',
+              tag: 'Concrete Mechanism',
+              isOnePager: false,
+              subject: 'Re: outbound at {{company_name}}',
+              body: `Hi {{first_name}},
+
+To make that a bit more concrete—instead of pulling static databases, we build your target list fresh each month from live sources, attach the proof for why each company fits your criteria, and handle domain warm-up and follow-ups for you.
+
+Nothing goes out that you can't inspect live in your account.
+
+Worth a quick look at how the dashboard works?
+
+{{sender_first_name}}`
+            },
+            {
+              step: 'Follow-Up 2',
+              day: 'Day 9',
+              tag: 'One-Pager Offer',
+              isOnePager: true,
+              subject: 'Re: outbound at {{company_name}}',
+              body: `Hi {{first_name}},
+
+To make it easy to review on your own time, we put together a short one-pager showing how we'd source and vet accounts for {{company_name}}, along with a look inside the live dashboard.
+
+Just reply "yes" and I'll send it over.
+
+{{sender_first_name}}`
+            }
+          ]
+        },
+        {
+          id: 'var2',
+          tabLabel: 'Var 2: Value-First',
+          shortName: 'Variation 2',
+          title: 'Value-First Sample ("Show, Don\'t Tell")',
+          angle: 'Value-First Sample ("Show, Don\'t Tell")',
+          bestFor: 'Skeptical U.S. buyers who delete standard outbound pitches. Leads with tangible proof of your vetting work instead of making claims.',
+          bestFitShort: 'High-skepticism buyers who ignore standard agency pitches',
+          onePagerPlacement: 'Email 1 (Day 1) & reinforced in Follow-Up 1 & 2',
+          mergeVars: ['{{first_name}}', '{{company_name}}', '{{industry}}', '{{sender_first_name}}'],
+          emails: [
+            {
+              step: 'Email 1',
+              day: 'Day 1',
+              tag: 'Initial Outreach + One-Pager Offer',
+              isOnePager: true,
+              subject: '5 vetted accounts for {{company_name}}',
+              body: `Hi {{first_name}},
+
+Reaching out because we help U.S. {{industry}} teams build B2B pipeline without scraped databases—and figured showing how we work is better than pitching over email.
+
+Mind if I send over a quick one-pager with 5 vetted accounts that match {{company_name}}'s ICP, complete with the source proof for each and a sample outreach angle?
+
+Just reply "yes" and I'll send it right over.
+
+{{sender_first_name}}
+Pipeleo`
+            },
+            {
+              step: 'Follow-Up 1',
+              day: 'Day 4',
+              tag: 'Why It\'s Different from a Database Export',
+              isOnePager: true,
+              subject: 'Re: 5 vetted accounts for {{company_name}}',
+              body: `Hi {{first_name}},
+
+Quick context on why this isn't a typical database export: we verify every target company against live sources using your exact rules, test each email against the mail server before sending, and show every touch in a live client dashboard.
+
+Happy to send that 5-account one-pager over for {{company_name}} so you can judge the quality yourself—just reply "yes."
+
+{{sender_first_name}}`
+            },
+            {
+              step: 'Follow-Up 2',
+              day: 'Day 9',
+              tag: 'Soft Loop-Close',
+              isOnePager: true,
+              subject: 'Re: 5 vetted accounts for {{company_name}}',
+              body: `Hi {{first_name}},
+
+Last note from me—if outbound isn't a focus for {{company_name}} this quarter, totally fine.
+
+If you'd ever like to see the one-pager or click around a live demo dashboard, just reply "yes" and I'll drop it over.
+
+{{sender_first_name}}`
+            }
+          ]
+        },
+        {
+          id: 'var3',
+          tabLabel: 'Var 3: Zero Time Sink',
+          shortName: 'Variation 3',
+          title: 'Ultra-Simple & Conversational ("Zero Time Sink")',
+          angle: 'Ultra-Simple & Conversational ("Zero Time Sink")',
+          bestFor: 'Busy founders/owners relying mostly on referrals or stretched sales teams without bandwidth to manage outbound research, verification, and follow-ups in-house.',
+          bestFitShort: 'Lean teams relying on referrals or lacking SDR bandwidth',
+          onePagerPlacement: 'Follow-Up 1 (Day 4)',
+          mergeVars: ['{{first_name}}', '{{company_name}}', '{{industry}}', '{{sender_first_name}}'],
+          emails: [
+            {
+              step: 'Email 1',
+              day: 'Day 1',
+              tag: 'Initial Outreach',
+              isOnePager: false,
+              subject: 'pipeline at {{company_name}}',
+              body: `Hi {{first_name}},
+
+Reaching out because we work with U.S. {{industry}} teams—quick question: are you running B2B outbound in-house at {{company_name}} right now, or growing mostly through referrals?
+
+At Pipeleo, we handle the entire front half for you: fresh research from live sources, fit verification with proof, email testing, and follow-ups—all visible in your own dashboard. You only step in when a vetted decision-maker replies with interest.
+
+Worth a quick look at how it works?
+
+{{sender_first_name}}
+Pipeleo`
+            },
+            {
+              step: 'Follow-Up 1',
+              day: 'Day 4',
+              tag: 'One-Pager Offer',
+              isOnePager: true,
+              subject: 'Re: pipeline at {{company_name}}',
+              body: `Hi {{first_name}},
+
+Rather than trying to explain everything over email, we put together a simple one-pager walking through our step-by-step process, what a proof-backed target account looks like, and a peek inside the live dashboard.
+
+Just reply "yes" and I'll send it over so you can look through it on your own time.
+
+{{sender_first_name}}`
+            },
+            {
+              step: 'Follow-Up 2',
+              day: 'Day 9',
+              tag: 'Clean Close + Soft Referral',
+              isOnePager: false,
+              subject: 'Re: pipeline at {{company_name}}',
+              body: `Hi {{first_name}},
+
+Closing the loop here—if someone else on your team owns outbound pipeline at {{company_name}}, happy to send that one-pager their way instead.
+
+Otherwise, wishing you a strong quarter.
+
+{{sender_first_name}}`
+            }
+          ]
+        },
+        {
+          id: 'var4',
+          tabLabel: 'Var 4: Custom Trigger',
+          shortName: 'Variation 4',
+          title: 'Custom Trigger / Personalized Opener + 2 Universal Follow-Ups',
+          angle: 'Custom Trigger / Personalized Opener + Universal Follow-Ups',
+          bestFor: 'High-value accounts where you spot a concrete trigger (e.g., hiring an SDR or lead gen role, raising funding, launching a new product, or expanding into a new vertical).',
+          bestFitShort: 'High-value accounts showing an active buying signal',
+          onePagerPlacement: 'Follow-Up 2 (Day 9)',
+          mergeVars: ['{{first_name}}', '{{company_name}}', '{{custom_subject}}', '{{personalized_opener}}', '{{sender_first_name}}'],
+          emails: [
+            {
+              step: 'Email 1',
+              day: 'Day 1',
+              tag: 'Plug-and-Play Trigger Template',
+              isOnePager: false,
+              subject: '{{custom_subject}}',
+              body: `Hi {{first_name}},
+
+{{personalized_opener}}
+
+At Pipeleo, we help B2B teams ramp up outbound quickly without the wait or guesswork—we source and vet every target company fresh with proof of fit attached, test every email before sending, and handle outreach in a live dashboard you can inspect anytime. Your team only steps in when a decision-maker replies with interest.
+
+Worth a quick look to see if this could support what you're building at {{company_name}}?
+
+{{sender_first_name}}
+Pipeleo`
+            },
+            {
+              step: 'Follow-Up 1',
+              day: 'Day 4',
+              tag: 'Universal — Works for Any Trigger',
+              isOnePager: false,
+              subject: 'Re: {{custom_subject}}',
+              body: `Hi {{first_name}},
+
+Following up on my note below—just to clarify what makes our setup different from standard outbound agencies or bought lists.
+
+Every account we target is verified against live sources using your custom rules (with source proof attached), emails are tested before anything goes out, and you see every company and message in real time in your own dashboard.
+
+Open to taking a quick look at a live demo account?
+
+{{sender_first_name}}`
+            },
+            {
+              step: 'Follow-Up 2',
+              day: 'Day 9',
+              tag: 'Universal — One-Pager Offer + Clean Close',
+              isOnePager: true,
+              subject: 'Re: {{custom_subject}}',
+              body: `Hi {{first_name}},
+
+To keep things simple, we put together a quick one-pager showing how our process works, what a proof-backed target account looks like, and a peek inside the live dashboard.
+
+Just reply "yes" and I'll send it over. And if someone else at {{company_name}} is leading outbound right now, happy to send it their way instead.
+
+{{sender_first_name}}`
+            }
+          ]
+        }
+      ];
+
+      const CHECKLIST_ITEMS = [
+        {
+          id: 'industry-format',
+          category: 'Pre-Launch Setup',
+          title: 'Format {{industry}} naturally in lowercase',
+          detail: 'Use plain phrasing people actually say (e.g., manufacturing, IT services, logistics, B2B SaaS)—never raw LinkedIn database labels like "Information Technology & Services".'
+        },
+        {
+          id: 'even-split',
+          category: 'Experiment Design',
+          title: 'Split the exact same ICP evenly across Variations 1, 2, and 3',
+          detail: 'Aim for 250–300 prospects per variation (750–900 total) before declaring a winner. Reserve Variation 4 for trigger-qualified accounts so you can compare cold lists against signal-based outreach.'
+        },
+        {
+          id: 'open-tracking',
+          category: 'Deliverability & Metrics',
+          title: 'Turn open tracking OFF and judge by positive reply rate',
+          detail: 'Open-tracking pixels hurt U.S. inbox placement. Measure total reply rate, positive "yes" / demo-request rate, and conversion from "yes" reply to live conversation.'
+        },
+        {
+          id: 'one-pager-ready',
+          category: 'One-Pager Fulfillment',
+          title: 'Prepare the one-pager before launch (zero pricing)',
+          detail: 'Focus on how accounts are researched and vetted with source proof, a live dashboard screenshot/peek, a sample vetted target card (or 5 tailored accounts for Variation 2), and a soft next step. Deliver within 1–2 hours of a "yes" reply.'
+        },
+        {
+          id: 'website-pricing',
+          category: 'pipeleo.com U.S. Readiness',
+          title: 'Remove or update public fixed pricing on pipeleo.com',
+          detail: 'Public pages on pipeleo.com currently display fixed pricing—update or remove that if your pricing is now custom and should not be revealed upfront.'
+        },
+        {
+          id: 'website-us-sourcing',
+          category: 'pipeleo.com U.S. Readiness',
+          title: 'Highlight U.S. data sourcing and CAN-SPAM alignment on pipeleo.com',
+          detail: 'U.S. buyers check your site before replying. Show U.S.-relevant sourcing (state business registers, U.S. industry directories, live company sites, and CAN-SPAM alignment) alongside European registers.'
+        }
+      ];
+
+      const TABS = [
+        { id: 'overview', label: 'Overview' },
+        { id: 'var1', label: 'Var 1: Transparency' },
+        { id: 'var2', label: 'Var 2: Value-First' },
+        { id: 'var3', label: 'Var 3: Zero Time Sink' },
+        { id: 'var4', label: 'Var 4: Custom Trigger' },
+        { id: 'checklist', label: 'Launch Checklist' }
+      ];
+
+      let state = {
+        activeTab: 'overview',
+        mode: 'template', // 'template' | 'preview'
+        vars: Object.assign({}, DEFAULT_VARS),
+        activePresetId: 'hiring',
+        checked: {}
+      };
+
+      const STORAGE_KEY = 'pipeleo_us_playbook_checks_v1';
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          state.checked = JSON.parse(saved) || {};
+        }
+      } catch (e) {
+        // Ignore storage errors in sandboxed iframes
+      }
+
+      function saveChecks() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state.checked));
+        } catch (e) {
+          // Ignore storage errors in sandboxed iframes
+        }
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function resolveText(raw) {
+        if (state.mode === 'template') {
+          return raw;
+        }
+        let out = raw;
+        // Resolve custom Var 4 placeholders first (may themselves contain {{company_name}})
+        out = out.replace(/\{\{custom_subject\}\}/g, state.vars.custom_subject || '{{custom_subject}}');
+        out = out.replace(/\{\{personalized_opener\}\}/g, state.vars.personalized_opener || '{{personalized_opener}}');
+        // Resolve standard variables
+        out = out.replace(/\{\{first_name\}\}/g, state.vars.first_name || '{{first_name}}');
+        out = out.replace(/\{\{company_name\}\}/g, state.vars.company_name || '{{company_name}}');
+        out = out.replace(/\{\{industry\}\}/g, state.vars.industry || '{{industry}}');
+        out = out.replace(/\{\{sender_first_name\}\}/g, state.vars.sender_first_name || '{{sender_first_name}}');
+        return out;
+      }
+
+      function formatWithHighlightedTokens(raw) {
+        const escaped = escapeHtml(raw);
+        return escaped.replace(/(\{\{[^}]+\}\})/g, '<span class="inline-block px-1 py-0.5 rounded font-mono text-xs bg-[var(--content,#f1f5f9)] text-[var(--primary,#2563eb)] border border-[var(--border,#e2e8f0)]">$1</span>');
+      }
+
+      function countWords(text) {
+        const trimmed = text.trim();
+        if (!trimmed) return 0;
+        return trimmed.split(/\s+/).length;
+      }
+
+      let toastTimer = null;
+      function showToast(message) {
+        const toast = document.getElementById('copy-toast');
+        toast.textContent = message;
+        toast.classList.remove('hidden');
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          toast.classList.add('hidden');
+        }, 1800);
+      }
+
+      function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        ta.style.top = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        let ok = false;
+        try {
+          ok = document.execCommand('copy');
+        } catch (e) {
+          ok = false;
+        }
+        document.body.removeChild(ta);
+        return ok;
+      }
+
+      function copyText(text, label) {
+        if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+          navigator.clipboard.writeText(text).then(function () {
+            showToast(label || 'Copied to clipboard');
+          }).catch(function () {
+            if (fallbackCopy(text)) {
+              showToast(label || 'Copied to clipboard');
+            } else {
+              showToast('Copy failed — select text manually');
+            }
+          });
+        } else {
+          if (fallbackCopy(text)) {
+            showToast(label || 'Copied to clipboard');
+          } else {
+            showToast('Copy failed — select text manually');
+          }
+        }
+      }
+
+      function flashButton(btn, tempText) {
+        if (!btn) return;
+        const orig = btn.dataset.origLabel || btn.textContent;
+        btn.dataset.origLabel = orig;
+        btn.textContent = tempText;
+        setTimeout(function () {
+          btn.textContent = orig;
+        }, 1400);
+      }
+
+      function syncInputs() {
+        document.getElementById('input-first-name').value = state.vars.first_name;
+        document.getElementById('input-company-name').value = state.vars.company_name;
+        document.getElementById('input-industry').value = state.vars.industry;
+        document.getElementById('input-sender-name').value = state.vars.sender_first_name;
+        document.getElementById('input-custom-subject').value = state.vars.custom_subject;
+        document.getElementById('input-personalized-opener').value = state.vars.personalized_opener;
+      }
+
+      function renderModeButtons() {
+        const btnT = document.getElementById('btn-mode-template');
+        const btnP = document.getElementById('btn-mode-preview');
+        const previewPanel = document.getElementById('preview-controls');
+        const var4Controls = document.getElementById('preview-var4-controls');
+
+        const activeCls = 'px-3 py-1.5 rounded-md text-xs font-semibold transition-colors cursor-pointer bg-[var(--primary,#2563eb)] text-[var(--primary-foreground,#ffffff)]';
+        const idleCls = 'px-3 py-1.5 rounded-md text-xs font-semibold transition-colors cursor-pointer text-[var(--muted-foreground,#475569)] hover:text-[var(--foreground,#0f172a)]';
+
+        if (state.mode === 'template') {
+          btnT.className = activeCls;
+          btnP.className = idleCls;
+          previewPanel.classList.add('hidden');
+        } else {
+          btnT.className = idleCls;
+          btnP.className = activeCls;
+          previewPanel.classList.remove('hidden');
+          if (state.activeTab === 'var4' || state.activeTab === 'overview') {
+            var4Controls.classList.remove('hidden');
+          } else {
+            var4Controls.classList.add('hidden');
+          }
+        }
+      }
+
+      function renderTabs() {
+        const tabBar = document.getElementById('tab-bar');
+        const completedCount = CHECKLIST_ITEMS.filter(function (item) { return !!state.checked[item.id]; }).length;
+        tabBar.innerHTML = TABS.map(function (tab) {
+          const isActive = state.activeTab === tab.id;
+          const badge = tab.id === 'checklist'
+            ? ' <span class="ml-1 px-1.5 py-0.5 rounded-full text-xs ' + (isActive ? 'bg-[var(--card,#ffffff)] text-[var(--primary,#2563eb)]' : 'bg-[var(--content,#f1f5f9)] text-[var(--muted-foreground,#475569)]') + '">' + completedCount + '/' + CHECKLIST_ITEMS.length + '</span>'
+            : '';
+          return '<button type="button" data-action="switch-tab" data-tab="' + tab.id + '" class="px-3.5 py-2 rounded-lg text-xs font-semibold border transition-colors cursor-pointer ' +
+            (isActive
+              ? 'bg-[var(--primary,#2563eb)] text-[var(--primary-foreground,#ffffff)] border-[var(--primary,#2563eb)]'
+              : 'bg-[var(--card,#ffffff)] text-[var(--foreground,#0f172a)] border-[var(--card-border,#e2e8f0)] hover:bg-[var(--content,#f1f5f9)]') +
+            '">' + escapeHtml(tab.label) + badge + '</button>';
+        }).join('');
+      }
+
+      function renderOverview() {
+        const rows = SEQUENCES.map(function (seq) {
+          const varsHtml = seq.mergeVars.map(function (v) {
+            return '<code class="inline-block px-1.5 py-0.5 rounded text-xs font-mono bg-[var(--content,#f1f5f9)] text-[var(--foreground,#0f172a)] border border-[var(--border,#e2e8f0)]">' + escapeHtml(v) + '</code>';
+          }).join(' ');
+          return '<tr class="border-t border-[var(--border,#e2e8f0)] hover:bg-[var(--content,#f1f5f9)] transition-colors cursor-pointer" data-action="switch-tab" data-tab="' + seq.id + '">' +
+            '<td class="py-3.5 px-4 align-top whitespace-nowrap">' +
+              '<div class="font-semibold text-sm text-[var(--primary,#2563eb)]">' + escapeHtml(seq.shortName) + '</div>' +
+              '<div class="text-xs text-[var(--muted-foreground,#475569)] mt-0.5">Open sequence →</div>' +
+            '</td>' +
+            '<td class="py-3.5 px-4 align-top font-medium text-[var(--foreground,#0f172a)]">' + escapeHtml(seq.angle) + '</td>' +
+            '<td class="py-3.5 px-4 align-top text-[var(--muted-foreground,#475569)]">' + escapeHtml(seq.bestFitShort) + '</td>' +
+            '<td class="py-3.5 px-4 align-top text-[var(--foreground,#0f172a)]">' + escapeHtml(seq.onePagerPlacement) + '</td>' +
+            '<td class="py-3.5 px-4 align-top"><div class="flex flex-wrap gap-1">' + varsHtml + '</div></td>' +
+          '</tr>';
+        }).join('');
+
+        return `
+          <!-- Cadence Strip -->
+          <section class="bg-[var(--card,#ffffff)] border border-[var(--card-border,#e2e8f0)] rounded-xl p-5 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <h2 class="text-base font-bold text-[var(--foreground,#0f172a)]">Campaign Cadence &amp; Testing Structure</h2>
+              <span class="text-xs text-[var(--muted-foreground,#475569)]">Split the same ICP evenly across Var 1–3; use Var 4 for trigger accounts</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="bg-[var(--content,#f1f5f9)] border border-[var(--border,#e2e8f0)] rounded-lg p-3.5 space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-[var(--primary,#2563eb)]">STEP 1 · DAY 1</span>
+                  <span class="text-xs text-[var(--muted-foreground,#475569)]">Fresh thread</span>
+                </div>
+                <div class="text-sm font-semibold text-[var(--foreground,#0f172a)]">Initial Outreach</div>
+                <p class="text-xs text-[var(--muted-foreground,#475569)]">Establishes context ("why you") + Pipeleo's fresh-sourcing &amp; dashboard proof + low-friction CTA.</p>
+              </div>
+              <div class="bg-[var(--content,#f1f5f9)] border border-[var(--border,#e2e8f0)] rounded-lg p-3.5 space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-[var(--primary,#2563eb)]">STEP 2 · DAY 4</span>
+                  <span class="text-xs text-[var(--muted-foreground,#475569)]">Same thread (Re:)</span>
+                </div>
+                <div class="text-sm font-semibold text-[var(--foreground,#0f172a)]">Follow-Up 1</div>
+                <p class="text-xs text-[var(--muted-foreground,#475569)]">Adds concrete mechanism (live-source verification &amp; email testing) or introduces the one-pager.</p>
+              </div>
+              <div class="bg-[var(--content,#f1f5f9)] border border-[var(--border,#e2e8f0)] rounded-lg p-3.5 space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-[var(--primary,#2563eb)]">STEP 3 · DAY 9</span>
+                  <span class="text-xs text-[var(--muted-foreground,#475569)]">Same thread (Re:)</span>
+                </div>
+                <div class="text-sm font-semibold text-[var(--foreground,#0f172a)]">Follow-Up 2</div>
+                <p class="text-xs text-[var(--muted-foreground,#475569)]">Offers the zero-pressure "reply yes" one-pager or cleanly closes the loop with an optional teammate handoff.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Comparison Table -->
+          <section class="bg-[var(--card,#ffffff)] border border-[var(--card-border,#e2e8f0)] rounded-xl overflow-hidden">
+            <div class="px-5 py-4 border-b border-[var(--border,#e2e8f0)] flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h2 class="text-base font-bold text-[var(--foreground,#0f172a)]">Sequence Comparison Matrix</h2>
+                <p class="text-xs text-[var(--muted-foreground,#475569)]">Click any row to open that sequence and copy its emails.</p>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr class="bg-[var(--content,#f1f5f9)] text-xs font-semibold text-[var(--muted-foreground,#475569)] uppercase tracking-wider">
+                    <th class="py-3 px-4">Variation</th>
+                    <th class="py-3 px-4">Core Angle</th>
+                    <th class="py-3 px-4">Best Target Fit</th>
+                    <th class="py-3 px-4">One-Pager Placement</th>
+                    <th class="py-3 px-4">Merge Variables</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${rows}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        `;
+      }
+
+      function renderVar4Presets() {
+        const isPreview = state.mode === 'preview';
+        const cards = VAR4_PRESETS.map(function (preset) {
+          const isSelected = state.activePresetId === preset.id;
+          return '<button type="button" data-action="apply-preset" data-preset="' + preset.id + '" class="text-left p-4 rounded-xl border transition-colors cursor-pointer space-y-2 ' +
+            (isSelected && isPreview
+              ? 'bg-[var(--content,#f1f5f9)] border-[var(--primary,#2563eb)]'
+              : 'bg-[var(--content,#f1f5f9)] border-[var(--border,#e2e8f0)] hover:border-[var(--primary,#2563eb)]') +
+            '">' +
+            '<div class="flex items-center justify-between gap-2">' +
+              '<span class="text-xs font-bold text-[var(--primary,#2563eb)]">' + escapeHtml(preset.badge) + '</span>' +
+              '<span class="text-xs font-semibold text-[var(--link,#2563eb)]">' + (isPreview ? (isSelected ? 'Active in Preview ✓' : 'Load into Email 1') : 'Click to preview in Email 1 →') + '</span>' +
+            '</div>' +
+            '<div class="text-sm font-semibold text-[var(--foreground,#0f172a)]">' + escapeHtml(preset.label) + '</div>' +
+            '<div class="text-xs text-[var(--muted-foreground,#475569)]"><span class="font-semibold text-[var(--foreground,#0f172a)]">Subject:</span> <span class="font-mono">' + escapeHtml(preset.subject) + '</span></div>' +
+            '<div class="text-xs text-[var(--muted-foreground,#475569)]"><span class="font-semibold text-[var(--foreground,#0f172a)]">Opener:</span> ' + escapeHtml(preset.opener) + '</div>' +
+          '</button>';
+        }).join('');
+
+        return `
+          <section class="bg-[var(--card,#ffffff)] border border-[var(--card-border,#e2e8f0)] rounded-xl p-5 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h3 class="text-sm font-bold text-[var(--foreground,#0f172a)]">Example Trigger Presets for Email 1</h3>
+                <p class="text-xs text-[var(--muted-foreground,#475569)]">
+                  ${isPreview
+                    ? 'Click a preset to update {{custom_subject}} and {{personalized_opener}} live in Email 1 below.'
+                    : 'Click either example card to load it into Live Preview and see how Email 1 renders with real values.'}
+                </p>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              ${cards}
+            </div>
+          </section>
+        `;
+      }
+
+      function renderSequence(seq) {
+        const emailCards = seq.emails.map(function (email, idx) {
+          const resolvedSubject = resolveText(email.subject);
+          const resolvedBody = resolveText(email.body);
+          const words = countWords(resolvedBody);
+
+          const subjectHtml = state.mode === 'template'
+            ? formatWithHighlightedTokens(resolvedSubject)
+            : escapeHtml(resolvedSubject);
+          const bodyHtml = state.mode === 'template'
+            ? formatWithHighlightedTokens(resolvedBody)
+            : escapeHtml(resolvedBody);
+
+          return `
+            <article class="bg-[var(--card,#ffffff)] border border-[var(--card-border,#e2e8f0)] rounded-xl overflow-hidden">
+              <div class="px-5 py-3.5 bg-[var(--content,#f1f5f9)] border-b border-[var(--border,#e2e8f0)] flex flex-wrap items-center justify-between gap-3">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-bold bg-[var(--primary,#2563eb)] text-[var(--primary-foreground,#ffffff)]">
+                    ${escapeHtml(email.step)} · ${escapeHtml(email.day)}
+                  </span>
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium ${email.isOnePager ? 'text-[var(--success,#059669)] border-[var(--success,#059669)]' : 'text-[var(--muted-foreground,#475569)] border-[var(--border,#e2e8f0)]'} bg-[var(--card,#ffffff)] border">
+                    ${escapeHtml(email.tag)}
+                  </span>
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-mono tabular-nums text-[var(--muted-foreground,#475569)] bg-[var(--card,#ffffff)] border border-[var(--border,#e2e8f0)]">
+                    ${words} words
+                  </span>
+                </div>
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <button type="button" data-action="copy-subject" data-seq="${seq.id}" data-idx="${idx}" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-[var(--card,#ffffff)] text-[var(--foreground,#0f172a)] border border-[var(--border,#e2e8f0)] hover:border-[var(--primary,#2563eb)] cursor-pointer transition-colors">
+                    Copy Subject
+                  </button>
+                  <button type="button" data-action="copy-body" data-seq="${seq.id}" data-idx="${idx}" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-[var(--card,#ffffff)] text-[var(--foreground,#0f172a)] border border-[var(--border,#e2e8f0)] hover:border-[var(--primary,#2563eb)] cursor-pointer transition-colors">
+                    Copy Body
+                  </button>
+                  <button type="button" data-action="copy-all" data-seq="${seq.id}" data-idx="${idx}" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-[var(--primary,#2563eb)] text-[var(--primary-foreground,#ffffff)] hover:opacity-90 cursor-pointer transition-opacity">
+                    Copy All
+                  </button>
+                </div>
+              </div>
+
+              <div class="p-5 space-y-4">
+                <div class="pb-3 border-b border-[var(--border,#e2e8f0)] flex flex-wrap items-baseline gap-2">
+                  <span class="text-xs font-semibold uppercase tracking-wider text-[var(--muted-foreground,#475569)]">Subject:</span>
+                  <span class="text-sm font-semibold text-[var(--foreground,#0f172a)]">${subjectHtml}</span>
+                </div>
+                <div class="whitespace-pre-wrap text-sm leading-relaxed text-[var(--foreground,#0f172a)]">${bodyHtml}</div>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+        return `
+          <section class="bg-[var(--card,#ffffff)] border border-[var(--card-border,#e2e8f0)] rounded-xl p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="space-y-1">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-xs font-bold uppercase tracking-wider text-[var(--primary,#2563eb)]">${escapeHtml(seq.shortName)}</span>
+                <span class="text-xs text-[var(--muted-foreground,#475569)]">· One-Pager: ${escapeHtml(seq.onePagerPlacement)}</span>
+              </div>
+              <h2 class="text-lg font-bold text-[var(--foreground,#0f172a)]">${escapeHtml(seq.title)}</h2>
+              <p class="text-xs sm:text-sm text-[var(--muted-foreground,#475569)]"><strong class="text-[var(--foreground,#0f172a)]">Best for:</strong> ${escapeHtml(seq.bestFor)}</p>
+            </div>
+            <button type="button" data-action="copy-sequence" data-seq="${seq.id}" class="shrink-0 px-3.5 py-2 rounded-lg text-xs font-semibold bg-[var(--primary,#2563eb)] text-[var(--primary-foreground,#ffffff)] hover:opacity-90 cursor-pointer transition-opacity">
+              Copy Full Sequence (3 Emails)
+            </button>
+          </section>
+
+          ${seq.id === 'var4' ? renderVar4Presets() : ''}
+
+          <div class="space-y-4">
+            ${emailCards}
+          </div>
+        `;
+      }
+
+      function renderChecklist() {
+        const completedCount = CHECKLIST_ITEMS.filter(function (item) { return !!state.checked[item.id]; }).length;
+        const pct = Math.round((completedCount / CHECKLIST_ITEMS.length) * 100);
+
+        const itemsHtml = CHECKLIST_ITEMS.map(function (item) {
+          const isChecked = !!state.checked[item.id];
+          return `
+            <label class="flex items-start gap-3.5 p-4 rounded-xl border transition-colors cursor-pointer ${isChecked ? 'bg-[var(--content,#f1f5f9)] border-[var(--border,#e2e8f0)] opacity-80' : 'bg-[var(--card,#ffffff)] border-[var(--card-border,#e2e8f0)] hover:border-[var(--primary,#2563eb)]'}">
+              <input type="checkbox" data-action="toggle-check" data-check-id="${item.id}" ${isChecked ? 'checked' : ''} class="mt-0.5 w-4 h-4 rounded accent-[var(--primary,#2563eb)] cursor-pointer shrink-0" />
+              <div class="space-y-1 flex-1">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="text-xs font-semibold px-2 py-0.5 rounded bg-[var(--content,#f1f5f9)] text-[var(--primary,#2563eb)] border border-[var(--border,#e2e8f0)]">
+                    ${escapeHtml(item.category)}
+                  </span>
+                  <span class="text-sm font-semibold text-[var(--foreground,#0f172a)] ${isChecked ? 'line-through' : ''}">
+                    ${escapeHtml(item.title)}
+                  </span>
+                </div>
+                <p class="text-xs text-[var(--muted-foreground,#475569)] leading-relaxed">
+                  ${escapeHtml(item.detail)}
+                </p>
+              </div>
+            </label>
+          `;
+        }).join('');
+
+        return `
+          <section class="bg-[var(--card,#ffffff)] border border-[var(--card-border,#e2e8f0)] rounded-xl p-5 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div class="space-y-1">
+                <h2 class="text-lg font-bold text-[var(--foreground,#0f172a)]">Testing &amp; Launch Readiness Checklist</h2>
+                <p class="text-xs text-[var(--muted-foreground,#475569)]">Track setup steps before pushing live U.S. traffic.</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-semibold tabular-nums text-[var(--foreground,#0f172a)]">${completedCount} of ${CHECKLIST_ITEMS.length} completed (${pct}%)</span>
+                <button type="button" data-action="reset-checks" class="text-xs font-medium text-[var(--link,#2563eb)] hover:underline cursor-pointer">
+                  Reset
+                </button>
+              </div>
+            </div>
+            <div class="w-full h-2 rounded-full bg-[var(--content,#f1f5f9)] overflow-hidden border border-[var(--border,#e2e8f0)]">
+              <div class="h-full bg-[var(--primary,#2563eb)] transition-all duration-200" style="width: ${pct}%;"></div>
+            </div>
+            <div class="space-y-3">
+              ${itemsHtml}
+            </div>
+          </section>
+        `;
+      }
+
+      function render() {
+        renderModeButtons();
+        renderTabs();
+        const main = document.getElementById('main-content');
+        if (state.activeTab === 'overview') {
+          main.innerHTML = renderOverview();
+        } else if (state.activeTab === 'checklist') {
+          main.innerHTML = renderChecklist();
+        } else {
+          const seq = SEQUENCES.find(function (s) { return s.id === state.activeTab; });
+          main.innerHTML = seq ? renderSequence(seq) : renderOverview();
+        }
+      }
+
+      // Wire mode buttons
+      document.getElementById('btn-mode-template').addEventListener('click', function () {
+        state.mode = 'template';
+        render();
+      });
+      document.getElementById('btn-mode-preview').addEventListener('click', function () {
+        state.mode = 'preview';
+        render();
+      });
+
+      document.getElementById('btn-reset-vars').addEventListener('click', function () {
+        state.vars = Object.assign({}, DEFAULT_VARS);
+        state.activePresetId = 'hiring';
+        syncInputs();
+        render();
+      });
+
+      // Wire live preview inputs
+      function bindInput(id, key) {
+        document.getElementById(id).addEventListener('input', function (e) {
+          state.vars[key] = e.target.value;
+          if (key === 'custom_subject' || key === 'personalized_opener') {
+            state.activePresetId = '';
+          }
+          render();
+        });
+      }
+      bindInput('input-first-name', 'first_name');
+      bindInput('input-company-name', 'company_name');
+      bindInput('input-industry', 'industry');
+      bindInput('input-sender-name', 'sender_first_name');
+      bindInput('input-custom-subject', 'custom_subject');
+      bindInput('input-personalized-opener', 'personalized_opener');
+
+      // Delegated click / change handlers
+      document.addEventListener('click', function (e) {
+        const target = e.target.closest('[data-action]');
+        if (!target) return;
+        const action = target.getAttribute('data-action');
+
+        if (action === 'switch-tab') {
+          state.activeTab = target.getAttribute('data-tab');
+          render();
+          return;
+        }
+
+        if (action === 'apply-preset') {
+          const presetId = target.getAttribute('data-preset');
+          const preset = VAR4_PRESETS.find(function (p) { return p.id === presetId; });
+          if (preset) {
+            state.activePresetId = preset.id;
+            state.vars.custom_subject = preset.subject;
+            state.vars.personalized_opener = preset.opener;
+            state.mode = 'preview';
+            syncInputs();
+            render();
+            showToast('Loaded "' + preset.label + '" into Live Preview');
+          }
+          return;
+        }
+
+        if (action === 'copy-subject' || action === 'copy-body' || action === 'copy-all') {
+          const seqId = target.getAttribute('data-seq');
+          const idx = parseInt(target.getAttribute('data-idx'), 10);
+          const seq = SEQUENCES.find(function (s) { return s.id === seqId; });
+          if (!seq || !seq.emails[idx]) return;
+          const email = seq.emails[idx];
+          const subj = resolveText(email.subject);
+          const body = resolveText(email.body);
+
+          if (action === 'copy-subject') {
+            copyText(subj, 'Subject copied');
+            flashButton(target, 'Copied!');
+          } else if (action === 'copy-body') {
+            copyText(body, 'Email body copied');
+            flashButton(target, 'Copied!');
+          } else {
+            copyText('Subject: ' + subj + '\n\n' + body, 'Subject + body copied');
+            flashButton(target, 'Copied!');
+          }
+          return;
+        }
+
+        if (action === 'copy-sequence') {
+          const seqId = target.getAttribute('data-seq');
+          const seq = SEQUENCES.find(function (s) { return s.id === seqId; });
+          if (!seq) return;
+          const fullText = seq.emails.map(function (email) {
+            const subj = resolveText(email.subject);
+            const body = resolveText(email.body);
+            return '=== ' + email.step + ' (' + email.day + ') ===\nSubject: ' + subj + '\n\n' + body;
+          }).join('\n\n----------------------------------------\n\n');
+          copyText(fullText, seq.shortName + ' (3 emails) copied');
+          flashButton(target, 'Sequence Copied!');
+          return;
+        }
+
+        if (action === 'reset-checks') {
+          state.checked = {};
+          saveChecks();
+          render();
+          return;
+        }
+      });
+
+      document.addEventListener('change', function (e) {
+        const target = e.target;
+        if (target && target.getAttribute('data-action') === 'toggle-check') {
+          const id = target.getAttribute('data-check-id');
+          state.checked[id] = !!target.checked;
+          saveChecks();
+          render();
+        }
+      });
+
+      syncInputs();
+      render();
+    })();
+  </script>
+</body>
+</html>
