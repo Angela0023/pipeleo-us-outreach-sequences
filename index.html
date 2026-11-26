@@ -88,14 +88,28 @@
             <input id="input-sender-name" type="text" class="w-full px-3 py-1.5 rounded-lg text-sm bg-[var(--content,#f1f5f9)] text-[var(--foreground,#0f172a)] border border-[var(--border,#e2e8f0)] focus:outline-none focus:border-[var(--primary,#2563eb)]" />
           </label>
         </div>
-        <div id="preview-var4-controls" class="grid grid-cols-1 lg:grid-cols-2 gap-3 pt-1">
+        <div id="preview-var3-controls" class="grid grid-cols-1 lg:grid-cols-2 gap-3 pt-1">
           <label class="block space-y-1">
-            <span class="text-xs font-medium text-[var(--muted-foreground,#475569)] font-mono">{{custom_subject}} <span class="font-sans">(Var 4)</span></span>
+            <span class="text-xs font-medium text-[var(--muted-foreground,#475569)] font-mono">{{custom_subject}} <span class="font-sans">(Var 3)</span></span>
             <input id="input-custom-subject" type="text" class="w-full px-3 py-1.5 rounded-lg text-sm bg-[var(--content,#f1f5f9)] text-[var(--foreground,#0f172a)] border border-[var(--border,#e2e8f0)] focus:outline-none focus:border-[var(--primary,#2563eb)]" />
           </label>
           <label class="block space-y-1">
-            <span class="text-xs font-medium text-[var(--muted-foreground,#475569)] font-mono">{{personalized_opener}} <span class="font-sans">(Var 4)</span></span>
+            <span class="text-xs font-medium text-[var(--muted-foreground,#475569)] font-mono">{{personalized_opener}} <span class="font-sans">(Var 3)</span></span>
             <input id="input-personalized-opener" type="text" class="w-full px-3 py-1.5 rounded-lg text-sm bg-[var(--content,#f1f5f9)] text-[var(--foreground,#0f172a)] border border-[var(--border,#e2e8f0)] focus:outline-none focus:border-[var(--primary,#2563eb)]" />
+          </label>
+        </div>
+        <div id="preview-var4-controls" class="grid grid-cols-1 lg:grid-cols-4 gap-3 pt-1">
+          <label class="block space-y-1 lg:col-span-2">
+            <span class="text-xs font-medium text-[var(--muted-foreground,#475569)] font-mono">{{first_sentence}} <span class="font-sans">(Var 4)</span></span>
+            <input id="input-first-sentence" type="text" class="w-full px-3 py-1.5 rounded-lg text-sm bg-[var(--content,#f1f5f9)] text-[var(--foreground,#0f172a)] border border-[var(--border,#e2e8f0)] focus:outline-none focus:border-[var(--primary,#2563eb)]" />
+          </label>
+          <label class="block space-y-1">
+            <span class="text-xs font-medium text-[var(--muted-foreground,#475569)] font-mono">{{target_buyer_singular}} <span class="font-sans">(Var 4)</span></span>
+            <input id="input-target-singular" type="text" class="w-full px-3 py-1.5 rounded-lg text-sm bg-[var(--content,#f1f5f9)] text-[var(--foreground,#0f172a)] border border-[var(--border,#e2e8f0)] focus:outline-none focus:border-[var(--primary,#2563eb)]" />
+          </label>
+          <label class="block space-y-1">
+            <span class="text-xs font-medium text-[var(--muted-foreground,#475569)] font-mono">{{target_buyers_plural}} <span class="font-sans">(Var 4)</span></span>
+            <input id="input-target-plural" type="text" class="w-full px-3 py-1.5 rounded-lg text-sm bg-[var(--content,#f1f5f9)] text-[var(--foreground,#0f172a)] border border-[var(--border,#e2e8f0)] focus:outline-none focus:border-[var(--primary,#2563eb)]" />
           </label>
         </div>
       </div>
@@ -122,10 +136,13 @@
         industry: 'logistics',
         sender_first_name: 'Angela',
         custom_subject: 'lead gen role / outbound at {{company_name}}',
-        personalized_opener: "Noticed you're hiring a lead generation specialist at {{company_name}}—sounds like building steady B2B pipeline is a big focus right now."
+        personalized_opener: "Noticed you're hiring a lead generation specialist at {{company_name}}—sounds like building steady B2B pipeline is a big focus right now.",
+        first_sentence: 'I saw Apex Logistics helps mid-market manufacturers streamline cold-chain freight.',
+        target_buyer_singular: 'mid-market manufacturer',
+        target_buyers_plural: 'mid-market manufacturers'
       };
 
-      const VAR4_PRESETS = [
+      const VAR3_PRESETS = [
         {
           id: 'hiring',
           label: 'Hiring Lead Gen Role',
@@ -141,6 +158,15 @@
           opener: 'Congrats on the recent {{funding/launch/expansion}} at {{company_name}}—usually right when teams start pushing harder on outbound pipeline.'
         }
       ];
+
+      const PIRROS_EXAMPLE = {
+        first_name: 'Ari',
+        company_name: 'Pirros',
+        sender_first_name: 'Chris',
+        first_sentence: 'I saw Pirros helps architecture firms manage Revit details.',
+        target_buyer_singular: 'architecture firm',
+        target_buyers_plural: 'architecture firms'
+      };
 
       const SEQUENCES = [
         {
@@ -205,66 +231,8 @@ Just reply "yes" and I'll send it over.
         },
         {
           id: 'var2',
-          tabLabel: 'Var 2: Value-First',
+          tabLabel: 'Var 2: Zero Time Sink',
           shortName: 'Variation 2',
-          title: 'Value-First Sample ("Show, Don\'t Tell")',
-          angle: 'Value-First Sample ("Show, Don\'t Tell")',
-          bestFor: 'Skeptical U.S. buyers who delete standard outbound pitches. Leads with tangible proof of your vetting work instead of making claims.',
-          bestFitShort: 'High-skepticism buyers who ignore standard agency pitches',
-          onePagerPlacement: 'Email 1 (Day 1) & reinforced in Follow-Up 1 & 2',
-          mergeVars: ['{{first_name}}', '{{company_name}}', '{{industry}}', '{{sender_first_name}}'],
-          emails: [
-            {
-              step: 'Email 1',
-              day: 'Day 1',
-              tag: 'Initial Outreach + One-Pager Offer',
-              isOnePager: true,
-              subject: '5 vetted accounts for {{company_name}}',
-              body: `Hi {{first_name}},
-
-Reaching out because we help U.S. {{industry}} teams build B2B pipeline without scraped databases—and figured showing how we work is better than pitching over email.
-
-Mind if I send over a quick one-pager with 5 vetted accounts that match {{company_name}}'s ICP, complete with the source proof for each and a sample outreach angle?
-
-Just reply "yes" and I'll send it right over.
-
-{{sender_first_name}}
-Pipeleo`
-            },
-            {
-              step: 'Follow-Up 1',
-              day: 'Day 4',
-              tag: 'Why It\'s Different from a Database Export',
-              isOnePager: true,
-              subject: 'Re: 5 vetted accounts for {{company_name}}',
-              body: `Hi {{first_name}},
-
-Quick context on why this isn't a typical database export: we verify every target company against live sources using your exact rules, test each email against the mail server before sending, and show every touch in a live client dashboard.
-
-Happy to send that 5-account one-pager over for {{company_name}} so you can judge the quality yourself—just reply "yes."
-
-{{sender_first_name}}`
-            },
-            {
-              step: 'Follow-Up 2',
-              day: 'Day 9',
-              tag: 'Soft Loop-Close',
-              isOnePager: true,
-              subject: 'Re: 5 vetted accounts for {{company_name}}',
-              body: `Hi {{first_name}},
-
-Last note from me—if outbound isn't a focus for {{company_name}} this quarter, totally fine.
-
-If you'd ever like to see the one-pager or click around a live demo dashboard, just reply "yes" and I'll drop it over.
-
-{{sender_first_name}}`
-            }
-          ]
-        },
-        {
-          id: 'var3',
-          tabLabel: 'Var 3: Zero Time Sink',
-          shortName: 'Variation 3',
           title: 'Ultra-Simple & Conversational ("Zero Time Sink")',
           angle: 'Ultra-Simple & Conversational ("Zero Time Sink")',
           bestFor: 'Busy founders/owners relying mostly on referrals or stretched sales teams without bandwidth to manage outbound research, verification, and follow-ups in-house.',
@@ -320,9 +288,9 @@ Otherwise, wishing you a strong quarter.
           ]
         },
         {
-          id: 'var4',
-          tabLabel: 'Var 4: Custom Trigger',
-          shortName: 'Variation 4',
+          id: 'var3',
+          tabLabel: 'Var 3: Custom Trigger',
+          shortName: 'Variation 3',
           title: 'Custom Trigger / Personalized Opener + 2 Universal Follow-Ups',
           angle: 'Custom Trigger / Personalized Opener + Universal Follow-Ups',
           bestFor: 'High-value accounts where you spot a concrete trigger (e.g., hiring an SDR or lead gen role, raising funding, launching a new product, or expanding into a new vertical).',
@@ -378,21 +346,79 @@ Just reply "yes" and I'll send it over. And if someone else at {{company_name}} 
 {{sender_first_name}}`
             }
           ]
+        },
+        {
+          id: 'var4',
+          tabLabel: 'Var 4: Founder Niche Bridge',
+          shortName: 'Variation 4',
+          title: 'Founder Niche Bridge + 5-Account Sample',
+          angle: 'Founder Niche Bridge + 5-Account Sample',
+          bestFor: 'Niche B2B founders selling a specialized product where generic scraped databases miss actual ICP fit. Pairs a researched first sentence with matching singular/plural buyer tokens.',
+          bestFitShort: 'Niche B2B founders where generic databases miss actual ICP fit',
+          onePagerPlacement: 'Email 1 (Day 1) & reinforced in Follow-Up 1 & 2',
+          mergeVars: ['{{first_name}}', '{{company_name}}', '{{first_sentence}}', '{{target_buyer_singular}}', '{{target_buyers_plural}}', '{{sender_first_name}}'],
+          emails: [
+            {
+              step: 'Email 1',
+              day: 'Day 1',
+              tag: 'Founder Niche Bridge + One-Pager Offer',
+              isOnePager: true,
+              subject: '{{target_buyer_singular}} outbound',
+              body: `Hi {{first_name}},
+
+{{first_sentence}} When you sell into a specific niche like that, generic databases usually miss the mark—you end up emailing {{target_buyers_plural}} that don't actually fit.
+
+As a founder, I ran into that same problem, so we built Pipeleo to source and vet every target {{target_buyer_singular}} fresh from live sources (with proof of fit attached), test every email before sending, and run outreach in a live dashboard where you see every account and message. You only step in when a decision-maker replies with interest.
+
+Mind if I send over a quick one-pager with 5 vetted {{target_buyers_plural}} we'd target for {{company_name}} (with the source proof for each)?
+
+{{sender_first_name}}
+Founder, Pipeleo`
+            },
+            {
+              step: 'Follow-Up 1',
+              day: 'Day 4',
+              tag: 'One-Pager Reminder + Dashboard Peek',
+              isOnePager: true,
+              subject: 'Re: {{target_buyer_singular}} outbound',
+              body: `Hi {{first_name}},
+
+Quick follow-up on my note below—happy to send over that short one-pager with 5 vetted {{target_buyers_plural}} we'd target for {{company_name}}, along with the source proof for each and a peek inside the live dashboard.
+
+Just reply "yes" and I'll send it right over.
+
+{{sender_first_name}}`
+            },
+            {
+              step: 'Follow-Up 2',
+              day: 'Day 9',
+              tag: 'Soft Loop-Close + Optional Teammate Handoff',
+              isOnePager: true,
+              subject: 'Re: {{target_buyer_singular}} outbound',
+              body: `Hi {{first_name}},
+
+Last note from me—if outbound isn't a focus for {{company_name}} right now, totally fine.
+
+If you'd ever like to see the 5-account one-pager or click around a live demo dashboard, just reply "yes" and I'll drop it over. And if someone else on your team owns outbound, happy to send it their way instead.
+
+{{sender_first_name}}`
+            }
+          ]
         }
       ];
 
       const CHECKLIST_ITEMS = [
         {
-          id: 'industry-format',
+          id: 'variable-format',
           category: 'Pre-Launch Setup',
-          title: 'Format {{industry}} naturally in lowercase',
-          detail: 'Use plain phrasing people actually say (e.g., manufacturing, IT services, logistics, B2B SaaS)—never raw LinkedIn database labels like "Information Technology & Services".'
+          title: 'Format {{industry}} and Var 4 buyer tokens naturally',
+          detail: 'Keep {{industry}} lowercase for Variations 1 & 2 (e.g., manufacturing, IT services, logistics, B2B SaaS)—never raw LinkedIn labels. For Variation 4, verify {{target_buyer_singular}} and {{target_buyers_plural}} fit cleanly in both singular ("target {{target_buyer_singular}}") and plural ("5 vetted {{target_buyers_plural}}") slots.'
         },
         {
           id: 'even-split',
           category: 'Experiment Design',
-          title: 'Split the exact same ICP evenly across Variations 1, 2, and 3',
-          detail: 'Aim for 250–300 prospects per variation (750–900 total) before declaring a winner. Reserve Variation 4 for trigger-qualified accounts so you can compare cold lists against signal-based outreach.'
+          title: 'Split the exact same ICP evenly across Variations 1, 2, and 4',
+          detail: 'Aim for 250–300 prospects per cold variation before picking a winner. Reserve Variation 3 as a dedicated trigger lane for accounts showing an active hiring, funding, or growth signal.'
         },
         {
           id: 'open-tracking',
@@ -404,7 +430,7 @@ Just reply "yes" and I'll send it over. And if someone else at {{company_name}} 
           id: 'one-pager-ready',
           category: 'One-Pager Fulfillment',
           title: 'Prepare the one-pager before launch (zero pricing)',
-          detail: 'Focus on how accounts are researched and vetted with source proof, a live dashboard screenshot/peek, a sample vetted target card (or 5 tailored accounts for Variation 2), and a soft next step. Deliver within 1–2 hours of a "yes" reply.'
+          detail: 'Focus on how accounts are researched and vetted with source proof, a live dashboard screenshot/peek, a sample vetted target card (or 5 tailored accounts for Variation 4), and a soft next step. Deliver within 1–2 hours of a "yes" reply.'
         },
         {
           id: 'website-pricing',
@@ -423,9 +449,9 @@ Just reply "yes" and I'll send it over. And if someone else at {{company_name}} 
       const TABS = [
         { id: 'overview', label: 'Overview' },
         { id: 'var1', label: 'Var 1: Transparency' },
-        { id: 'var2', label: 'Var 2: Value-First' },
-        { id: 'var3', label: 'Var 3: Zero Time Sink' },
-        { id: 'var4', label: 'Var 4: Custom Trigger' },
+        { id: 'var2', label: 'Var 2: Zero Time Sink' },
+        { id: 'var3', label: 'Var 3: Custom Trigger' },
+        { id: 'var4', label: 'Var 4: Founder Niche Bridge' },
         { id: 'checklist', label: 'Launch Checklist' }
       ];
 
@@ -434,10 +460,11 @@ Just reply "yes" and I'll send it over. And if someone else at {{company_name}} 
         mode: 'template', // 'template' | 'preview'
         vars: Object.assign({}, DEFAULT_VARS),
         activePresetId: 'hiring',
+        pirrosLoaded: false,
         checked: {}
       };
 
-      const STORAGE_KEY = 'pipeleo_us_playbook_checks_v1';
+      const STORAGE_KEY = 'pipeleo_us_playbook_checks_v2';
       try {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
@@ -469,9 +496,12 @@ Just reply "yes" and I'll send it over. And if someone else at {{company_name}} 
           return raw;
         }
         let out = raw;
-        // Resolve custom Var 4 placeholders first (may themselves contain {{company_name}})
+        // Resolve composite placeholders first (may themselves contain {{company_name}})
         out = out.replace(/\{\{custom_subject\}\}/g, state.vars.custom_subject || '{{custom_subject}}');
         out = out.replace(/\{\{personalized_opener\}\}/g, state.vars.personalized_opener || '{{personalized_opener}}');
+        out = out.replace(/\{\{first_sentence\}\}/g, state.vars.first_sentence || '{{first_sentence}}');
+        out = out.replace(/\{\{target_buyer_singular\}\}/g, state.vars.target_buyer_singular || '{{target_buyer_singular}}');
+        out = out.replace(/\{\{target_buyers_plural\}\}/g, state.vars.target_buyers_plural || '{{target_buyers_plural}}');
         // Resolve standard variables
         out = out.replace(/\{\{first_name\}\}/g, state.vars.first_name || '{{first_name}}');
         out = out.replace(/\{\{company_name\}\}/g, state.vars.company_name || '{{company_name}}');
@@ -558,12 +588,16 @@ Just reply "yes" and I'll send it over. And if someone else at {{company_name}} 
         document.getElementById('input-sender-name').value = state.vars.sender_first_name;
         document.getElementById('input-custom-subject').value = state.vars.custom_subject;
         document.getElementById('input-personalized-opener').value = state.vars.personalized_opener;
+        document.getElementById('input-first-sentence').value = state.vars.first_sentence;
+        document.getElementById('input-target-singular').value = state.vars.target_buyer_singular;
+        document.getElementById('input-target-plural').value = state.vars.target_buyers_plural;
       }
 
       function renderModeButtons() {
         const btnT = document.getElementById('btn-mode-template');
         const btnP = document.getElementById('btn-mode-preview');
         const previewPanel = document.getElementById('preview-controls');
+        const var3Controls = document.getElementById('preview-var3-controls');
         const var4Controls = document.getElementById('preview-var4-controls');
 
         const activeCls = 'px-3 py-1.5 rounded-md text-xs font-semibold transition-colors cursor-pointer bg-[var(--primary,#2563eb)] text-[var(--primary-foreground,#ffffff)]';
@@ -577,6 +611,11 @@ Just reply "yes" and I'll send it over. And if someone else at {{company_name}} 
           btnT.className = idleCls;
           btnP.className = activeCls;
           previewPanel.classList.remove('hidden');
+          if (state.activeTab === 'var3' || state.activeTab === 'overview') {
+            var3Controls.classList.remove('hidden');
+          } else {
+            var3Controls.classList.add('hidden');
+          }
           if (state.activeTab === 'var4' || state.activeTab === 'overview') {
             var4Controls.classList.remove('hidden');
           } else {
@@ -623,7 +662,7 @@ Just reply "yes" and I'll send it over. And if someone else at {{company_name}} 
           <section class="bg-[var(--card,#ffffff)] border border-[var(--card-border,#e2e8f0)] rounded-xl p-5 space-y-3">
             <div class="flex flex-wrap items-center justify-between gap-2">
               <h2 class="text-base font-bold text-[var(--foreground,#0f172a)]">Campaign Cadence &amp; Testing Structure</h2>
-              <span class="text-xs text-[var(--muted-foreground,#475569)]">Split the same ICP evenly across Var 1–3; use Var 4 for trigger accounts</span>
+              <span class="text-xs text-[var(--muted-foreground,#475569)]">Split the same ICP evenly across Var 1, 2 &amp; 4; use Var 3 for trigger accounts</span>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div class="bg-[var(--content,#f1f5f9)] border border-[var(--border,#e2e8f0)] rounded-lg p-3.5 space-y-1">
@@ -681,9 +720,9 @@ Just reply "yes" and I'll send it over. And if someone else at {{company_name}} 
         `;
       }
 
-      function renderVar4Presets() {
+      function renderVar3Presets() {
         const isPreview = state.mode === 'preview';
-        const cards = VAR4_PRESETS.map(function (preset) {
+        const cards = VAR3_PRESETS.map(function (preset) {
           const isSelected = state.activePresetId === preset.id;
           return '<button type="button" data-action="apply-preset" data-preset="' + preset.id + '" class="text-left p-4 rounded-xl border transition-colors cursor-pointer space-y-2 ' +
             (isSelected && isPreview
@@ -715,6 +754,36 @@ Just reply "yes" and I'll send it over. And if someone else at {{company_name}} 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
               ${cards}
             </div>
+          </section>
+        `;
+      }
+
+      function renderVar4PirrosCard() {
+        const isPreview = state.mode === 'preview';
+        const isActive = isPreview && state.pirrosLoaded;
+        return `
+          <section class="bg-[var(--card,#ffffff)] border border-[var(--card-border,#e2e8f0)] rounded-xl p-5 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h3 class="text-sm font-bold text-[var(--foreground,#0f172a)]">Filled-In Benchmark Example: Pirros</h3>
+                <p class="text-xs text-[var(--muted-foreground,#475569)]">
+                  See how the researched Line 1 bridges smoothly into Pipeleo's fresh vetting workflow using matching singular and plural buyer tokens.
+                </p>
+              </div>
+            </div>
+            <button type="button" data-action="apply-pirros" class="w-full text-left p-4 rounded-xl border transition-colors cursor-pointer space-y-2 ${isActive ? 'bg-[var(--content,#f1f5f9)] border-[var(--primary,#2563eb)]' : 'bg-[var(--content,#f1f5f9)] border-[var(--border,#e2e8f0)] hover:border-[var(--primary,#2563eb)]'}">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <span class="text-xs font-bold text-[var(--primary,#2563eb)]">Pirros Sample (Ari · Founder, Chris)</span>
+                <span class="text-xs font-semibold text-[var(--link,#2563eb)]">${isActive ? 'Loaded in Live Preview ✓' : 'Click to load Pirros example into Live Preview →'}</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[var(--muted-foreground,#475569)]">
+                <div><span class="font-semibold text-[var(--foreground,#0f172a)]">Subject:</span> <span class="font-mono">architecture firm outbound</span></div>
+                <div><span class="font-semibold text-[var(--foreground,#0f172a)]">Tokens:</span> <span class="font-mono">architecture firm</span> / <span class="font-mono">architecture firms</span></div>
+              </div>
+              <div class="text-xs text-[var(--muted-foreground,#475569)]">
+                <span class="font-semibold text-[var(--foreground,#0f172a)]">{{first_sentence}}:</span> ${escapeHtml(PIRROS_EXAMPLE.first_sentence)}
+              </div>
+            </button>
           </section>
         `;
       }
@@ -785,7 +854,8 @@ Just reply "yes" and I'll send it over. And if someone else at {{company_name}} 
             </button>
           </section>
 
-          ${seq.id === 'var4' ? renderVar4Presets() : ''}
+          ${seq.id === 'var3' ? renderVar3Presets() : ''}
+          ${seq.id === 'var4' ? renderVar4PirrosCard() : ''}
 
           <div class="space-y-4">
             ${emailCards}
@@ -870,6 +940,7 @@ Just reply "yes" and I'll send it over. And if someone else at {{company_name}} 
       document.getElementById('btn-reset-vars').addEventListener('click', function () {
         state.vars = Object.assign({}, DEFAULT_VARS);
         state.activePresetId = 'hiring';
+        state.pirrosLoaded = false;
         syncInputs();
         render();
       });
@@ -881,6 +952,9 @@ Just reply "yes" and I'll send it over. And if someone else at {{company_name}} 
           if (key === 'custom_subject' || key === 'personalized_opener') {
             state.activePresetId = '';
           }
+          if (key === 'first_sentence' || key === 'target_buyer_singular' || key === 'target_buyers_plural' || key === 'first_name' || key === 'company_name' || key === 'sender_first_name') {
+            state.pirrosLoaded = false;
+          }
           render();
         });
       }
@@ -890,6 +964,9 @@ Just reply "yes" and I'll send it over. And if someone else at {{company_name}} 
       bindInput('input-sender-name', 'sender_first_name');
       bindInput('input-custom-subject', 'custom_subject');
       bindInput('input-personalized-opener', 'personalized_opener');
+      bindInput('input-first-sentence', 'first_sentence');
+      bindInput('input-target-singular', 'target_buyer_singular');
+      bindInput('input-target-plural', 'target_buyers_plural');
 
       // Delegated click / change handlers
       document.addEventListener('click', function (e) {
@@ -905,7 +982,7 @@ Just reply "yes" and I'll send it over. And if someone else at {{company_name}} 
 
         if (action === 'apply-preset') {
           const presetId = target.getAttribute('data-preset');
-          const preset = VAR4_PRESETS.find(function (p) { return p.id === presetId; });
+          const preset = VAR3_PRESETS.find(function (p) { return p.id === presetId; });
           if (preset) {
             state.activePresetId = preset.id;
             state.vars.custom_subject = preset.subject;
@@ -915,6 +992,21 @@ Just reply "yes" and I'll send it over. And if someone else at {{company_name}} 
             render();
             showToast('Loaded "' + preset.label + '" into Live Preview');
           }
+          return;
+        }
+
+        if (action === 'apply-pirros') {
+          state.vars.first_name = PIRROS_EXAMPLE.first_name;
+          state.vars.company_name = PIRROS_EXAMPLE.company_name;
+          state.vars.sender_first_name = PIRROS_EXAMPLE.sender_first_name;
+          state.vars.first_sentence = PIRROS_EXAMPLE.first_sentence;
+          state.vars.target_buyer_singular = PIRROS_EXAMPLE.target_buyer_singular;
+          state.vars.target_buyers_plural = PIRROS_EXAMPLE.target_buyers_plural;
+          state.pirrosLoaded = true;
+          state.mode = 'preview';
+          syncInputs();
+          render();
+          showToast('Loaded Pirros example into Live Preview');
           return;
         }
 
